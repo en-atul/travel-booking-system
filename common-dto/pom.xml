@@ -8,9 +8,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>car-rental-service</artifactId>
-	<name>car-rental-service</name>
-	<description>car-rental-service</description>
+	<artifactId>common-dtos</artifactId>
+	<name>common</name>
+	<description>common</description>
 	<url/>
 	<licenses>
 		<license/>
