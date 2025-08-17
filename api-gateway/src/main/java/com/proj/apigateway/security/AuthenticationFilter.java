@@ -41,10 +41,12 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     // role-based access control for different endpoints
     private static final Map<String, List<String>> ROLE_REQUIREMENTS = Map.of(
-            "/account/**", Arrays.asList("USER", "ADMIN"),
-            "/customer/**", Arrays.asList("USER", "ADMIN"),
-            "/transaction/**", Arrays.asList("USER", "ADMIN"),
-            "/ledger/**", Arrays.asList("ADMIN"),
+            "/accounts/**", Arrays.asList("USER", "ADMIN"),
+            "/bookings/**", Arrays.asList("USER", "ADMIN"),
+            "/flights/**", Arrays.asList("USER", "ADMIN"),
+            "/hotels/**", Arrays.asList("USER", "ADMIN"),
+            "/car-rentals/**", Arrays.asList("USER", "ADMIN"),
+            "/payments/**", Arrays.asList("USER", "ADMIN"),
             "/notification/**", Arrays.asList("USER", "ADMIN")
     );
 
