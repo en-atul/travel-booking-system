@@ -5,6 +5,7 @@ import com.proj.hotelservice.request.HotelCancellationRequest;
 import com.proj.hotelservice.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,7 @@ import java.util.function.Consumer;
 public class StreamConfig {
 
     private final HotelService hotelService;
+    private final StreamBridge streamBridge;
 
     @Bean
     public Consumer<HotelReservationEvent> hotelReservationHandler() {
@@ -44,7 +46,7 @@ public class StreamConfig {
                                 event.getFullBookingRequest().getCar(),
                                 event.getFullBookingRequest()
                             );
-                            streamBridge.send("car-reservation", carEvent);
+                            streamBridge.send("reservation-events", carEvent);
                             log.info("Hotel service triggered car reservation for booking: {}", event.getBookingId());
                         } else {
                             // If no car needed, trigger payment directly
@@ -54,7 +56,7 @@ public class StreamConfig {
                                 event.getFullBookingRequest().getPayment(),
                                 event.getFullBookingRequest()
                             );
-                            streamBridge.send("payment-processing", paymentEvent);
+                            streamBridge.send("payment-events", paymentEvent);
                             log.info("Hotel service triggered payment processing for booking: {}", event.getBookingId());
                         }
                     },

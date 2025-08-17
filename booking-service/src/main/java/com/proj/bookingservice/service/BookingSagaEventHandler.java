@@ -79,7 +79,7 @@ public class BookingSagaEventHandler {
             
             // Trigger flight cancellation compensation
             if (booking.getFlightReservationId() != null) {
-                streamBridge.send("flight-cancel", new FlightCancelledEvent(
+                streamBridge.send("reservation-events", new FlightCancelledEvent(
                     event.getBookingId(), 
                     event.getUserId(), 
                     booking.getFlightReservationId(), 
@@ -119,7 +119,7 @@ public class BookingSagaEventHandler {
             
             // Trigger compensation for previous reservations
             if (booking.getFlightReservationId() != null) {
-                streamBridge.send("flight-cancel", new FlightCancelledEvent(
+                streamBridge.send("reservation-events", new FlightCancelledEvent(
                     event.getBookingId(), 
                     event.getUserId(), 
                     booking.getFlightReservationId(), 
@@ -128,7 +128,7 @@ public class BookingSagaEventHandler {
             }
             
             if (booking.getHotelReservationId() != null) {
-                streamBridge.send("hotel-cancel", new HotelCancelledEvent(
+                streamBridge.send("reservation-events", new HotelCancelledEvent(
                     event.getBookingId(), 
                     event.getUserId(), 
                     booking.getHotelReservationId(), 
@@ -170,7 +170,7 @@ public class BookingSagaEventHandler {
             
             // Trigger compensation for all previous reservations
             if (booking.getFlightReservationId() != null) {
-                streamBridge.send("flight-cancel", new FlightCancelledEvent(
+                streamBridge.send("reservation-events", new FlightCancelledEvent(
                     event.getBookingId(), 
                     event.getUserId(), 
                     booking.getFlightReservationId(), 
@@ -179,7 +179,7 @@ public class BookingSagaEventHandler {
             }
             
             if (booking.getHotelReservationId() != null) {
-                streamBridge.send("hotel-cancel", new HotelCancelledEvent(
+                streamBridge.send("reservation-events", new HotelCancelledEvent(
                     event.getBookingId(), 
                     event.getUserId(), 
                     booking.getHotelReservationId(), 
@@ -188,7 +188,7 @@ public class BookingSagaEventHandler {
             }
             
             if (booking.getCarReservationId() != null) {
-                streamBridge.send("car-cancel", new CarCancelledEvent(
+                streamBridge.send("reservation-events", new CarCancelledEvent(
                     event.getBookingId(), 
                     event.getUserId(), 
                     booking.getCarReservationId(), 

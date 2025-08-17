@@ -5,6 +5,7 @@ import com.proj.paymentservice.request.PaymentRefundRequest;
 import com.proj.paymentservice.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,7 @@ import java.util.function.Consumer;
 public class StreamConfig {
 
     private final PaymentService paymentService;
+    private final StreamBridge streamBridge;
 
     @Bean
     public Consumer<PaymentEvent> paymentProcessingHandler() {
@@ -45,7 +47,7 @@ public class StreamConfig {
                             null, // carReservationId - would be set by booking service
                             response.getTransactionId() // paymentTransactionId
                         );
-                        streamBridge.send("booking-completed", bookingCompletedEvent);
+                        streamBridge.send("booking-events", bookingCompletedEvent);
                         log.info("Payment service completed booking: {}", event.getBookingId());
                     },
                     error -> log.error("Payment processing failed for booking: {}", event.getBookingId(), error)

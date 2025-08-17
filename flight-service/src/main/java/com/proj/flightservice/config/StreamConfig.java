@@ -45,7 +45,7 @@ public class StreamConfig {
                                 event.getBookingRequest().getHotel(),
                                 event.getBookingRequest()
                             );
-                            streamBridge.send("hotel-reservation", hotelEvent);
+                            streamBridge.send("reservation-events", hotelEvent);
                             log.info("Flight service triggered hotel reservation for booking: {}", event.getBookingId());
                         } else if (event.getBookingRequest().getCar() != null) {
                             // If no hotel but car is needed, trigger car reservation
@@ -55,7 +55,7 @@ public class StreamConfig {
                                 event.getBookingRequest().getCar(),
                                 event.getBookingRequest()
                             );
-                            streamBridge.send("car-reservation", carEvent);
+                            streamBridge.send("reservation-events", carEvent);
                             log.info("Flight service triggered car reservation for booking: {}", event.getBookingId());
                         } else {
                             // If no hotel or car, trigger payment directly
@@ -65,7 +65,7 @@ public class StreamConfig {
                                 event.getBookingRequest().getPayment(),
                                 event.getBookingRequest()
                             );
-                            streamBridge.send("payment-processing", paymentEvent);
+                            streamBridge.send("payment-events", paymentEvent);
                             log.info("Flight service triggered payment processing for booking: {}", event.getBookingId());
                         }
                     },

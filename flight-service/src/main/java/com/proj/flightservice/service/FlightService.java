@@ -115,7 +115,7 @@ public class FlightService {
                         reservation.getId()
                     );
                     
-                    streamBridge.send("flight-reserved", event);
+                    streamBridge.send("reservation-events", event);
                     log.info("Flight reserved successfully for booking: {} with reservation ID: {}", 
                         request.getBookingId(), reservation.getId());
                     
@@ -161,7 +161,7 @@ public class FlightService {
                     e.getMessage()
                 );
                 
-                streamBridge.send("flight-reservation-failed", event);
+                streamBridge.send("reservation-events", event);
                 
                 throw new RuntimeException("Flight reservation failed: " + e.getMessage());
             }

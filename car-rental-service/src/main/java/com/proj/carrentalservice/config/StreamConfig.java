@@ -5,6 +5,7 @@ import com.proj.carrentalservice.request.CarCancellationRequest;
 import com.proj.carrentalservice.service.CarRentalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,7 @@ import java.util.function.Consumer;
 public class StreamConfig {
 
     private final CarRentalService carRentalService;
+    private final StreamBridge streamBridge;
 
     @Bean
     public Consumer<CarReservationEvent> carReservationHandler() {
@@ -43,7 +45,7 @@ public class StreamConfig {
                             event.getFullBookingRequest().getPayment(),
                             event.getFullBookingRequest()
                         );
-                        streamBridge.send("payment-processing", paymentEvent);
+                        streamBridge.send("payment-events", paymentEvent);
                         log.info("Car service triggered payment processing for booking: {}", event.getBookingId());
                     },
                     error -> log.error("Car reservation failed for booking: {}", event.getBookingId(), error)

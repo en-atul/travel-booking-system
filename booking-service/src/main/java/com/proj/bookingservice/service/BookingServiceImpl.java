@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
                 bookingRequest
             );
             
-            streamBridge.send("booking-created", event);
+            streamBridge.send("booking-events", event);
             log.info("Published booking created event for booking: {}", booking.getId());
             
             return mapToResponseDto(booking);
